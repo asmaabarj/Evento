@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Models\admin;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,18 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+//-------------------------------------------------------------------------
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+   
+}); 
+
+Route::middleware(['auth', 'role:organisateur'])->group(function () {
+   
+}); 
+
+Route::middleware(['auth', 'role:client'])->group(function () {
+   
+}); 
