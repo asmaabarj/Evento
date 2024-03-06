@@ -4,6 +4,7 @@ use App\Models\admin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\organiserController;
 use App\Http\Controllers\OrganisateurController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 
@@ -70,17 +71,20 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::get('/organisateur', function () {
         return view('organisateur.organisateur');
     })->name('organisateur');
-    Route::get('/addEvent', function () {
-        return view('organisateur.addEvent');
-    })->name('addEvent');
+
+    Route::match(['get', 'post'], '/addEvent', [OrganiserController::class, 'store'])->name('addEvent');
+
     Route::get('/manageEvent', function () {
         return view('organisateur.manageEvent');
     })->name('manageEvent');
+
     Route::get('/manageReservation', function () {
         return view('organisateur.manageReservation');
     })->name('manageReservation');
+});
 
-}); 
+
+
 
 // ---------------------------------------------------------------------------------------------
 

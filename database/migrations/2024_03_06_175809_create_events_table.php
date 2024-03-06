@@ -22,9 +22,8 @@ return new class extends Migration
             $table->integer('nbPlaces');
             $table->enum('acceptation', ['manuelle', 'automatique'])->default('automatique');
             $table->foreignId('id_categorie')->constrained('categories')->onDelete('cascade')->onUpdate('cascade');
-
-
-
+            $table->enum('status', ['1', '0','2'])->default('0');
+            
         });
     }
 
