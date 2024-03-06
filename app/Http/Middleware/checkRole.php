@@ -16,6 +16,6 @@ class CheckRole
             return $next($request);
         }
 
-        return redirect('/');
+        return redirect()->back();
     }
 }

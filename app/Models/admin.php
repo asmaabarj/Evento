@@ -9,4 +9,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class admin extends Model
 {
     use HasFactory , traitUsers;
+    protected $fillable = ['user_id'];
+
 }

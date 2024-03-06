@@ -56,4 +56,19 @@ class User extends Authenticatable
     {
         return $this->hasOne(organisateur::class);
     }
+    public function isAdmin()
+    {
+        return $this->admin !== null;
+    }
+
+    public function isOrganisateur()
+    {
+        return $this->organisateur !== null;
+    }
+    
+    
+    public function isClient()
+    {
+        return $this->client !== null;
+    }
 }

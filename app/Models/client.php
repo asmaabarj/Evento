@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class client extends Model
 {
-    use HasFactory , traitUsers;
+    use HasFactory, traitUsers;
+
+    protected $fillable = ['user_id'];
 }
