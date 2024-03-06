@@ -38,7 +38,7 @@
             </div>
             <div class="flex justify-end">
                 <button type="submit"
-                        class="px-4 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+                        class="px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
                     Add Category
                 </button>
             </div>

@@ -13,9 +13,7 @@
 <body class="w-[100%] ">
     @include('layouts.sideBarAdmin')
 
-    <div class="w-[80%] ml-auto bg-gray-50 
-  {{-- bg-gradient-to-r from-pink-500 to-purple-500 --}}
-   p-8 font-sans">
+    <div class="w-[80%] ml-auto bg-gray-50 p-8 font-sans">
         <div class="container mx-auto">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="bg-white flex gap-5 items-center rounded-lg shadow-md p-6">
@@ -27,7 +25,7 @@
                         </svg>
                     </div>
                     <div class="">
-                        <p class="text-3xl font-bold text-gray-800">5</p>
+                        <p class="text-3xl font-bold text-gray-800">{{ $categoriesCount }}</p>
                         <p class="text-gray-600 text-lg mt-1">Categories</p>
                     </div>
                 </div>
@@ -41,7 +39,7 @@
                         </svg>
                     </div>
                     <div class="">
-                        <p class="text-3xl font-bold text-gray-800">5</p>
+                        <p class="text-3xl font-bold text-gray-800">{{ $organizersCount }}</p>
                         <p class="text-gray-600 text-lg mt-1">Organizers</p>
                     </div>
                 </div>
@@ -55,7 +53,7 @@
                         </svg>
                     </div>
                     <div class="">
-                        <p class="text-3xl font-bold text-gray-800">5</p>
+                        <p class="text-3xl font-bold text-gray-800">{{ $clientsCount }}</p>
                         <p class="text-gray-600 text-lg mt-1">Clients</p>
                     </div>
                 </div>
@@ -69,7 +67,7 @@
                         </svg>
                     </div>
                     <div class="">
-                        <p class="text-3xl font-bold text-gray-800">5</p>
+                        <p class="text-3xl font-bold text-gray-800"></p>
                         <p class="text-gray-600 text-lg mt-1">Events</p>
                     </div>
                 </div>
@@ -117,30 +115,30 @@
                     <thead class="whitespace-nowrap bg-purple-100 rounded">
                         <tr>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-black">
-                                Products
+                                Category
                             </th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-black">
-                                Value
+                                Name
                             </th>
                         </tr>
                     </thead>
                     <tbody class="whitespace-nowrap">
+                        @foreach($categories as $category)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-3 text-sm">
                                 <div class="flex items-center cursor-pointer">
-                                    <img src='https://readymadeui.com/profile_4.webp'
+                                    <img src="{{ asset('images/' . $category->photo) }}"
                                         class="w-9 h-9 rounded-md shrink-0" />
-                                    <div class="ml-4">
-                                        <p class="text-sm text-black">Gladys Jones</p>
-                                    </div>
                                 </div>
                             </td>
                             <td class="px-6 py-3 text-sm">
-                                $8,000,000
+                                {{ $category->titre }}
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                
             </div>
         </section>
     </div>
