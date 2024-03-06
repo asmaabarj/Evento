@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('titre');
-            $table->string('photo');
+            $table->enum('status', ['1', '0'])->default('1');
         });
     }
 

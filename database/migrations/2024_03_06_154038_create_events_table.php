@@ -16,8 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('titre');
             $table->string('description');
-            $table->string('dateDubet');
-            $table->string('dateFin');
+            $table->string('date');
             $table->string('lieu');
             $table->string('photo');
             $table->integer('nbPlaces');

@@ -118,21 +118,19 @@
                                 Category
                             </th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-black">
-                                Name
+                                Events
                             </th>
                         </tr>
                     </thead>
                     <tbody class="whitespace-nowrap">
                         @foreach($categories as $category)
                         <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-3 text-sm">
-                                <div class="flex items-center cursor-pointer">
-                                    <img src="{{ asset('images/' . $category->photo) }}"
-                                        class="w-9 h-9 rounded-md shrink-0" />
-                                </div>
-                            </td>
+                            
                             <td class="px-6 py-3 text-sm">
                                 {{ $category->titre }}
+                            </td>
+                            <td class="px-6 py-3 text-sm">
+                                
                             </td>
                         </tr>
                         @endforeach

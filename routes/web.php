@@ -70,6 +70,16 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::get('/organisateur', function () {
         return view('organisateur.organisateur');
     })->name('organisateur');
+    Route::get('/addEvent', function () {
+        return view('organisateur.addEvent');
+    })->name('addEvent');
+    Route::get('/manageEvent', function () {
+        return view('organisateur.manageEvent');
+    })->name('manageEvent');
+    Route::get('/manageReservation', function () {
+        return view('organisateur.manageReservation');
+    })->name('manageReservation');
+
 }); 
 
 // ---------------------------------------------------------------------------------------------

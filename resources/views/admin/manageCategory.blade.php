@@ -10,28 +10,39 @@
 </head>
 
 <body class="w-full">
+
+    @if (session('success'))
+        <div id="success-message"
+            class="bg-purple-500  fixed right-20  top-50 z-50 text-white p-4 text-center animate-bounce mb-4">
+            {{ session('success') }}
+        </div>
+
+        <script>
+            setTimeout(function() {
+                document.getElementById('success-message').style.display = 'none';
+            }, 5000);
+        </script>
+    @endif
+
     @include('layouts.sideBarAdmin')
 
-    <div class="w-[80%] mt-10 ml-auto bg-white rounded-md overflow-hidden ">
-        <div class="py-4 pl-6 w-[60%]">
+    <div class="w-[80%] mt-10 md:ml-32 flex justify-center  bg-white rounded-md overflow-hidden ">
+        <div class="py-4 pl-6 w-[45%]">
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white font-[sans-serif]">
                     <thead class="whitespace-nowrap bg-gradient-to-r from-pink-500 to-purple-500 rounded">
                         <tr>
-                            <th class="px-6 py-4 text-left text-sm font-semibold text-black">Image</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold text-black">Name</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold text-black">Action</th>
+                            <th class="px-12 py-4 text-left text-sm font-semibold text-black">Name</th>
+                            <th class="px-12 py-4 text-left text-sm font-semibold flex mr-5 justify-end text-black">
+                                Action</th>
                         </tr>
                     </thead>
                     <tbody class="whitespace-nowrap">
                         @foreach ($categories as $category)
                             <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-3 text-sm">
-                                    <img src="{{ asset('images/' . $category->photo) }}" alt="{{ $category->titre }}"
-                                        class="w-16 h-16 rounded-md shrink-0">
-                                </td>
-                                <td class="px-6 py-3 text-sm">{{ $category->titre }}</td>
-                                <td class="px-6 pt-8 flex items-center text-sm">
+
+                                <td class="px-12 py-6 text-sm">{{ $category->titre }}</td>
+                                <td class="px-12 py-6 flex justify-end items-center text-sm">
                                     <form action="/editCatgory" method="POST">
                                         @csrf
                                         <input type="hidden" name="categorieId" value="{{ $category->id }}">
@@ -84,53 +95,54 @@
                     <script>
                         document.getElementById('addCategoryModal').classList.remove('hidden')
                     </script>
-               
-                <form action="/updateCategorie" method="POST">
-                    <input type="hidden" name="categorieId" value="{{$categorieEdit ? $categorieEdit->id : ''}}">
 
-                    @csrf
-                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
-                            <div
-                                class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-gray-100 sm:mx-0 sm:h-10 sm:w-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
-                                    width="24">
-                                    <path
-                                        d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                </svg>
+                    <form action="/updateCategorie" method="POST">
+                        <input type="hidden" name="categorieId" value="{{ $categorieEdit ? $categorieEdit->id : '' }}">
+
+                        @csrf
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="sm:flex sm:items-start">
+                                <div
+                                    class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-gray-100 sm:mx-0 sm:h-10 sm:w-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
+                                        width="24">
+                                        <path
+                                            d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
+                                    </svg>
+                                </div>
+                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                        Update category
+
+                                    </h3>
+
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mt-2">category
+                                        Name:</label>
+                                    <input type="text" name="name" id="name"
+                                        value="{{ $categorieEdit ? $categorieEdit->titre : '' }}"
+                                        class="mt-1 p-2 block w-full border-gray-300 rounded-md"
+                                        placeholder="Enter category name">
+                                </div>
+
                             </div>
-                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <a href="/manageCategory"><button id="ClosecategoryButton" type="button"
+                                    onclick="toggleModal('addCategoryModal')"
+                                    class="md:w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-pink-800 text-base font-medium text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:ml-3 mb-2 md:mb-0 sm:w-auto sm:text-sm">
+                                    Close
+                                </button></a>
 
-                                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                    Update category
+                            <button id="" type="submit"
+                                class="md:w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-800 text-base font-medium text-white hover:bg-purple/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                Update category
 
-                                </h3>
 
-                                <label for="name" class="block text-sm font-medium text-gray-700 mt-2">category
-                                    Name:</label>
-                                <input type="text" name="name" id="name"
-                                    value="{{ $categorieEdit ? $categorieEdit->titre : '' }}"
-                                    class="mt-1 p-2 block w-full border-gray-300 rounded-md"
-                                    placeholder="Enter category name">
-                            </div>
+                            </button>
 
                         </div>
-                    </div>
-                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                        <a href="/manageCategory"><button id="ClosecategoryButton" type="button" onclick="toggleModal('addCategoryModal')"
-                            class="md:w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-pink-800 text-base font-medium text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:ml-3 mb-2 md:mb-0 sm:w-auto sm:text-sm">
-                            Close
-                        </button></a>
-
-                        <button id="" type="submit"
-                            class="md:w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-800 text-base font-medium text-white hover:bg-purple/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm">
-                            Update category
-
-
-                        </button>
-
-                    </div>
-                </form>
+                    </form>
                 @endif
 
             </div>
