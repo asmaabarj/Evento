@@ -20,6 +20,7 @@ class OrganiserController extends Controller
                 'numberOfPlaces' => 'required|integer',
                 'category' => 'required|exists:categories,id',
                 'reservation_method' => 'required|in:manuelle,automatique',
+                'price' => 'required|string',
                 'picture' => 'required|image',
                 'description' => 'required|string',
             ]);
@@ -33,6 +34,7 @@ class OrganiserController extends Controller
             $event->nbPlaces = $validatedData['numberOfPlaces'];
             $event->id_categorie = $validatedData['category'];
             $event->acceptation = $validatedData['reservation_method'];
+            $event->price = $validatedData['price'];
             $event->photo = $picturePath; 
             $event->description = $validatedData['description'];
             $event->user_id = Auth::id();
@@ -43,5 +45,11 @@ class OrganiserController extends Controller
             $categories = Categorie::where('status', '1')->get();
             return view('organisateur.addEvent', compact('categories'));
         }
+    }
+
+    public function index(){
+        $organiserId=auth::id();
+        $events=Event::where('status','!=','3')->where('user_id',$organiserId)->with('categorie')->get();
+        return view('organisateur.manageEvent',compact('events'));
     }
 }

@@ -48,6 +48,7 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="flex justify-around">
                 <div class="mb-2">
                     <label for="reservation_method" class="block text-gray-700 text-sm font-bold mb-2">Reservation Method:</label>
                     <select id="reservation_method" name="reservation_method" class="w-full px-4 py-3 border rounded-md focus:outline-none focus:border-purple-500" required>
@@ -55,6 +56,13 @@
                         <option value="manuelle" {{ old('reservation_method') == 'manuelle' ? 'selected' : '' }}>Manual</option>
                         <option value="automatique" {{ old('reservation_method') == 'automatique' ? 'selected' : '' }}>Automatic</option>
                     </select>
+                </div>
+                    <div class="mb-2">
+                        <label for="price" class="block text-gray-700 text-sm font-bold mb-2">Price Ticket:</label>
+                        <input type="text" id="location" name="price" value="{{ old('price') }}" class="w-full px-4 py-3 border rounded-md focus:outline-none focus:border-purple-500" required>
+                    </div>
+                
+
                 </div>
                 <div class="mb-2">
                     <label for="picture" class="block text-gray-700 text-sm font-bold mb-2">Picture:</label>

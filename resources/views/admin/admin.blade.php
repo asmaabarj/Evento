@@ -74,7 +74,7 @@
             </div>
         </div>
         <section class="md:flex  md:justify-between">
-            <div class="overflow-x-auto py-8 md:w-[54%]">
+            <div class="overflow-x-auto py-8 md:w-[70%]">
                 <table class="min-w-full bg-white font-[sans-serif]">
                     <thead class="whitespace-nowrap bg-purple-100 rounded">
                         <tr>
@@ -82,35 +82,49 @@
                                 Events
                             </th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-black">
+                                Organizer
+                            </th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-black">
                                 Category
                             </th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-black">
                                 Date
                             </th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-black">
+                                Location
+                            </th>
                         </tr>
                     </thead>
                     <tbody class="whitespace-nowrap">
+                        @foreach($events as $event)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-3 text-sm">
                                 <div class="flex items-center cursor-pointer">
-                                    <img src='https://readymadeui.com/profile_4.webp'
+                                    <img src='{{ asset('storage/' . $event->photo) }}'
                                         class="w-9 h-9 rounded-md shrink-0" />
                                     <div class="ml-4">
-                                        <p class="text-sm text-black">Samgl</p>
+                                        <p class="text-sm text-black">{{$event->titre}}</p>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-3 text-sm">
-                                Festival
+                                {{$event->user->name}}
                             </td>
                             <td class="px-6 py-3 text-sm">
-                                2024-06-28
+                                {{$event->categorie->titre}}
+                            </td>
+                            <td class="px-6 py-3 text-sm">
+                                {{ date('Y-m-d', strtotime($event->date)) }} / {{ date('H:i', strtotime($event->date)) }}
+                            </td>
+                            <td class="px-6 py-3 text-sm">
+                                {{$event->lieu}}
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
-            <div class="overflow-x-auto py-8 md:w-[42%]">
+            <div class="overflow-x-auto py-8 md:w-[25%]">
                 <table class="min-w-full bg-white font-[sans-serif]">
                     <thead class="whitespace-nowrap bg-purple-100 rounded">
                         <tr>
@@ -130,8 +144,9 @@
                                 {{ $category->titre }}
                             </td>
                             <td class="px-6 py-3 text-sm">
-                                
+                                {{ $eventCounts[$category->id] }}
                             </td>
+                    
                         </tr>
                         @endforeach
                     </tbody>

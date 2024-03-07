@@ -66,12 +66,11 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
         return view('organisateur.organisateur');
     })->name('organisateur');
     Route::match(['get', 'post'], '/addEvent', [OrganiserController::class, 'store'])->name('addEvent');
-    Route::get('/manageEvent', function () {
-        return view('organisateur.manageEvent');
-    })->name('manageEvent');
+    Route::get('/manageEvent', [OrganiserController::class, 'index']);
     Route::get('/manageReservation', function () {
         return view('organisateur.manageReservation');
     })->name('manageReservation');
+
 });
 
 

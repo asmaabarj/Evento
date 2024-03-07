@@ -30,6 +30,7 @@
                         <th class="px-8 py-4 text-left text-sm font-semibold text-black">Date</th>
                         <th class="px-8 py-4 text-left text-sm font-semibold text-black">Location</th>
                         <th class="px-8 py-4 text-left text-sm font-semibold text-black">Places</th>
+                        <th class="px-8 py-4 text-left text-sm font-semibold text-black">Ticket Price</th>
                         <th class="px-8 py-4 text-left text-sm font-semibold text-black">Category</th>
                         <th class="px-8 py-4 text-left flex justify-center text-sm font-semibold text-black">Action</th>
                     </tr>
@@ -49,15 +50,16 @@
                         <td class="px-8 py-3 text-sm">{{ $event->date }}</td>
                         <td class="px-8 py-3 text-sm">{{ $event->lieu }}</td>
                         <td class="px-8 py-3 text-sm">{{ $event->nbPlaces }}</td>
+                        <td class="px-8 py-3 text-sm">{{ $event->price }}</td>
                         <td class="px-8 py-3 text-sm">{{ $event->categorie->titre }}</td>
                         <td class="px-8 py-3 text-sm flex gap-2 justify-end items-center">
-                            <form id="accept-form-{{ $event->id }}" action="{{ route('events.accept', $event->id) }}" method="POST">
+                            <form id="accept-form-{{ $event->id }}" action="{{ route('events.accept', $event->id) }}" method="POST" class="mt-3">
                                 @csrf
                                 <button type="submit" class="accept-button px-4 py-2 bg-gradient-to-r from-pink-400 rounded text-white text-sm tracking-wider font-medium border-none outline-none bg-pink-600 active:from-pink-500">
                                     Accept
                                 </button>
                             </form>
-                            <form id="refuse-form-{{ $event->id }}" action="{{ route('events.refuse', $event->id) }}" method="POST">
+                            <form id="refuse-form-{{ $event->id }}" action="{{ route('events.refuse', $event->id) }}" method="POST" class="mt-3">
                                 @csrf
                             <button type="submit" class="px-4 py-2  bg-gradient-to-r from-purple-400 rounded text-white text-sm tracking-wider font-medium border-none outline-none bg-purple-600 active:from-purple-500">
                                 Refuse

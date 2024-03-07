@@ -26,10 +26,10 @@
 
     @include('layouts.sideBarAdmin')
 
-    <div class="w-[80%] mt-10 md:ml-32 flex justify-center  bg-white rounded-md overflow-hidden ">
-        <div class="py-4 pl-6 w-[45%]">
+    <div class="w-[80%] mt-10  flex justify-center   bg-white rounded-md overflow-hidden ">
+        <div class="py-4 shadow-xl w-[45%]">
             <div class="overflow-x-auto">
-                <table class="min-w-full bg-white font-[sans-serif]">
+                <table class="min-w-full  bg-white font-[sans-serif]">
                     <thead class="whitespace-nowrap bg-gradient-to-r from-pink-500 to-purple-500 rounded">
                         <tr>
                             <th class="px-12 py-4 text-left text-sm font-semibold text-black">Name</th>
