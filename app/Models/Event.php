@@ -18,9 +18,15 @@ class Event extends Model
         'acceptation',
         'id_categorie',
         'status',
+        'user_id',
     ];
-    public function category()
+    public function categorie()
     {
         return $this->belongsTo(Categorie::class, 'id_categorie');
     }
+    public function user()
+    {
+        return $this->belongsTo(user::class, 'user_id');
+    }
+
 }

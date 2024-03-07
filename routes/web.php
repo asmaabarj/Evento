@@ -2,10 +2,10 @@
 
 use App\Models\admin;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\clientController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\organiserController;
-use App\Http\Controllers\OrganisateurController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 
 /*
@@ -37,33 +37,27 @@ require __DIR__.'/auth.php';
 //-------------------------------------------------------------------------
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin', function () {
-        return view('admin.admin');
-    })->name('admin');
-    
+    Route::get('/admin', [AdminController::class, 'adminPage'])->name('admin');
     Route::get('/addCategory', function () {
         return view('admin.addCategory');
     })->name('addCategory');
     Route::get('/manageClient', function () {
         return view('admin.manageClient');
     })->name('manageClient');
-    Route::get('/admin', [CategoryController::class, 'adminPage'])->name('admin');
-    Route::post('/updateCategorie', [CategoryController::class, 'updateCategorie']);
-    Route::match(['get', 'post'] , '/editCatgory', [CategoryController::class, 'index']);
-
+    Route::get('/manageEvents', [AdminController::class, 'manageEvents'])->name('manageEvents'); 
+    Route::post('/updateCategorie', [AdminController::class, 'updateCategorie']);
+    Route::match(['get', 'post'], '/editCatgory', [AdminController::class, 'index']);
     Route::get('/manageOrganizer', function () {
         return view('admin.manageOrganizer');
     })->name('manageOrganizer');
-    
-    Route::get('/manageReservation', function () {
-        return view('admin.manageReservation');
-    })->name('manageReservation');
-    
-    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-    Route::get('/manageCategory', [CategoryController::class, 'index'])->name('manageCategory');
-    Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    Route::post('/categories', [AdminController::class, 'store'])->name('categories.store');
+    Route::get('/manageCategory', [AdminController::class, 'index'])->name('manageCategory');
+    Route::delete('/categories/{id}', [AdminController::class, 'destroy'])->name('categories.destroy');
+    Route::post('/events/{id}/accept', [AdminController::class, 'acceptEvent'])->name('events.accept');
+    Route::post('/events/{id}/refuse', [AdminController::class, 'refuseEvent'])->name('events.refuse');
 
 });
+
 
 // ---------------------------------------------------------------------------------------------
 
@@ -71,13 +65,10 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::get('/organisateur', function () {
         return view('organisateur.organisateur');
     })->name('organisateur');
-
     Route::match(['get', 'post'], '/addEvent', [OrganiserController::class, 'store'])->name('addEvent');
-
     Route::get('/manageEvent', function () {
         return view('organisateur.manageEvent');
     })->name('manageEvent');
-
     Route::get('/manageReservation', function () {
         return view('organisateur.manageReservation');
     })->name('manageReservation');
@@ -89,7 +80,5 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
 // ---------------------------------------------------------------------------------------------
 
 Route::middleware(['auth', 'role:client'])->group(function () {
-    Route::get('/client', function () {
-        return view('client.client');
-    })->name('client');
+    Route::get('/client', [clientController::class, 'index'])->name('client');
 });

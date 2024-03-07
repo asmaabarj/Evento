@@ -67,7 +67,7 @@
                         </svg>
                     </div>
                     <div class="">
-                        <p class="text-3xl font-bold text-gray-800"></p>
+                        <p class="text-3xl font-bold text-gray-800">{{$eventCount}}</p>
                         <p class="text-gray-600 text-lg mt-1">Events</p>
                     </div>
                 </div>
@@ -79,13 +79,13 @@
                     <thead class="whitespace-nowrap bg-purple-100 rounded">
                         <tr>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-black">
-                                Products
+                                Events
                             </th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-black">
-                                Products
+                                Category
                             </th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-black">
-                                Value
+                                Date
                             </th>
                         </tr>
                     </thead>
@@ -96,15 +96,15 @@
                                     <img src='https://readymadeui.com/profile_4.webp'
                                         class="w-9 h-9 rounded-md shrink-0" />
                                     <div class="ml-4">
-                                        <p class="text-sm text-black">Gladys Jones</p>
+                                        <p class="text-sm text-black">Samgl</p>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-3 text-sm">
-                                $8,000,000
+                                Festival
                             </td>
                             <td class="px-6 py-3 text-sm">
-                                $8,000,000
+                                2024-06-28
                             </td>
                         </tr>
                     </tbody>

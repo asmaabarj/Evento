@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Event;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrganiserController extends Controller
 {
@@ -23,7 +24,7 @@ class OrganiserController extends Controller
                 'description' => 'required|string',
             ]);
 
-            $picturePath = $request->file('picture')->store('event_pictures');
+            $picturePath = $request->file('picture')->store('images', 'public');
 
             $event = new Event;
             $event->titre = $validatedData['titre'];
@@ -32,8 +33,9 @@ class OrganiserController extends Controller
             $event->nbPlaces = $validatedData['numberOfPlaces'];
             $event->id_categorie = $validatedData['category'];
             $event->acceptation = $validatedData['reservation_method'];
-            $event->photo = $picturePath;
+            $event->photo = $picturePath; 
             $event->description = $validatedData['description'];
+            $event->user_id = Auth::id();
             $event->save();
 
             return redirect()->back()->with('success', 'Event successfully added! Please await confirmation from the administrator!');

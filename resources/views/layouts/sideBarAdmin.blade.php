@@ -53,10 +53,10 @@ class="w-[20%] bg-white shadow-lg h-screen fixed top-0 left-0 min-w-[250px] py-6
     </ul>
 </div>
 <div class="mt-6">
-    <h6 class="text-purple-800 text-sm font-bold px-4">Resevations</h6>
+    <h6 class="text-purple-800 text-sm font-bold px-4">Events</h6>
     <ul class="mt-3">
         <li>
-            <a href="manageReservation"
+            <a href="/manageEvents"
                 class="text-black hover:text-purple-600 text-sm flex items-center hover:bg-purple-50 rounded px-4 py-3 transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-4"
                     viewBox="0 0 512.003 512.003">

@@ -29,7 +29,7 @@
                 </div>
                 <div class="mb-2">
                     <label for="date" class="block text-gray-700 text-sm font-bold mb-2">Date:</label>
-                    <input type="date" id="date" name="date" value="{{ old('date') }}" class="w-full px-4 py-3 border rounded-md focus:outline-none focus:border-purple-500" required>
+                    <input type="datetime-local" id="date" name="date" value="{{ old('date') }}" class="w-full px-4 py-3 border rounded-md focus:outline-none focus:border-purple-500" required>
                 </div>
                 <div class="mb-2">
                     <label for="location" class="block text-gray-700 text-sm font-bold mb-2">Location:</label>
