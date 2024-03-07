@@ -15,6 +15,7 @@ class Event extends Model
         'lieu',
         'photo',
         'nbPlaces',
+        'nbPlacesRester',
         'acceptation',
         'price',
         'id_categorie',

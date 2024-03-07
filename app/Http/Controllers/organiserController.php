@@ -26,12 +26,13 @@ class OrganiserController extends Controller
             ]);
 
             $picturePath = $request->file('picture')->store('images', 'public');
-
+            $validatedData['nbPlacesRester'] = $validatedData['numberOfPlaces'];
             $event = new Event;
             $event->titre = $validatedData['titre'];
             $event->date = $validatedData['date'];
             $event->lieu = $validatedData['location'];
             $event->nbPlaces = $validatedData['numberOfPlaces'];
+            $event->nbPlacesRester = $validatedData['nbPlacesRester'];
             $event->id_categorie = $validatedData['category'];
             $event->acceptation = $validatedData['reservation_method'];
             $event->price = $validatedData['price'];

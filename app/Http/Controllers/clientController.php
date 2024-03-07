@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Event;
-use Illuminate\Http\Request;
 use App\Models\Categorie; 
+use App\Models\Reservation;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 class ClientController extends Controller
 {
     public function index(Request $request)
@@ -38,5 +41,41 @@ class ClientController extends Controller
         $categories = Categorie::where('status', '1')->get();
 
         return view('client.client', compact('events', 'categories'));
+    }
+    public function ReserveEvent($eventId)
+    {
+        try {
+            $event = event::where('id', $eventId)->first();
+            if ($event->nbPlacesRester > '0') {
+                if ($event->acceptation === 'manuelle') {
+                    reservation::create(
+                        [
+                            'status' => '0',
+                            'event_id' => $eventId,
+                            'user_id' => Auth::id(),
+                        ]
+                    );
+
+                    return redirect()->back()->with('success', 'Request Sent successfully');
+                } else {
+                    reservation::create(
+                        [
+                            'status' => '1',
+                            'event_id' => $eventId,
+                            'user_id' => Auth::id(),
+                        ]
+
+                    );
+                    event::where('id', $eventId)->update([
+                        'nbPlacesRester' => (int)$event->nbPlacesRester - 1,
+                    ]);
+                    return redirect()->back()->with('success', 'Reserved');
+                }
+            } else {
+                return redirect()->back()->with('error', 'Out Of Stock');
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->view('errors.404', [], 404);
+        }
     }
 }

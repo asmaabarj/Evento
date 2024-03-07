@@ -80,4 +80,5 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
 
 Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('/client', [clientController::class, 'index'])->name('client');
+    Route::post('/reserveEvent/{eventId}', [clientController::class, 'reserveEvent']);
 });

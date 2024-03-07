@@ -10,8 +10,7 @@
 
 </head>
 <body>
-    
-
+   
     <div class="py-4 px-6  bg-white  flex items-center shadow-md shadow-black/5 sticky -top-0.5 left-0 z-30">
         <ul class="flex items-center text-sm ml-4">
             <li class="mr-2">
@@ -53,6 +52,19 @@
     
         </div>
     </div>
+    @if (session('success'))
+    <div id="success-message"
+        class="bg-purple-500  fixed right-20  top-55 z-50 text-white p-4 text-center  mb-4">
+        {{ session('success') }}
+    </div>
+
+    <script>
+        setTimeout(function() {
+            document.getElementById('success-message').style.display = 'none';
+        }, 5000);
+    </script>
+@endif
+
 <div class="bg-white flex px-4 py-3 mt-32 border-b-[2px] border-[#d869d291]  focus-within:border-pink-500 overflow-hidden max-w-xl mx-auto font-[sans-serif]">
     <form action="{{ route('client') }}" method="GET" class="flex">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904" width="18px" class="fill-gray-600 mr-3">
@@ -94,12 +106,25 @@
             <h4 class="text-sm font-medium text-gray-500">{{ $event->user->name }}</h4>
             <h3 class="text-xl font-bold text-[#333]">{{ $event->titre }}</h3>
             <h4 class="text-base font-medium text-gray-800">{{ $event->description }} </h4>
-            <h6 class="text-lg font-bold text-gray-900">{{ $event->lieu }}</h6>
+            <h6 class="text-lg font-bold text-gray-900">    <i class='bx bx-map'></i>
+                 {{ $event->lieu }}</h6>
+                 <div class="flex  mt-4 justify-between">
+                 <p class="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                    <i class='bx bx-purchase-tag-alt bx-rotate-90'></i>
+                    <span class="mt-2 xl:mt-0 ml-2">
+                        {{ $event->price }} MAD
+                    </span>
+                </p>
             <div class="flex justify-end text-gray-700  items-center ">
                 <i class='bx bx-chair '></i>
-                <h1 class="text-sm">available places : {{ $event->nbPlaces }}</h1>
+                <h1 class="text-sm">available places : {{ $event->nbPlacesRester }}</h1>
             </div>
-            <button type="button" class="px-4 py-2 mt-6 rounded text-white text-sm tracking-wider border-none outline-none bg-pink-500 hover:bg-purple-600">Reserve</button>
+        </div>
+            <form action="/reserveEvent/{{ $event->id }}" method="POST">
+                @csrf
+                <button type="submit" class="px-4 py-2 mt-6 rounded text-white text-sm tracking-wider border-none outline-none bg-pink-500 hover:bg-purple-600">Reserve</button>
+
+            </form>
           </div>
         </div> 
         @endforeach 

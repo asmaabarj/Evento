@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('lieu');
             $table->string('photo');
             $table->integer('nbPlaces');
+            $table->integer('nbPlacesRester');
             $table->enum('acceptation', ['manuelle', 'automatique'])->default('automatique');
             $table->string('price');
             $table->foreignId('id_categorie')->constrained('categories')->onDelete('cascade')->onUpdate('cascade');
