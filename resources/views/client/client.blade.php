@@ -120,8 +120,10 @@
                 <h1 class="text-sm">available places : {{ $event->nbPlacesRester }}</h1>
             </div>
         </div>
-            <form action="/reserveEvent/{{ $event->id }}" method="POST">
+        
+            <form action="/reserveEvent/{{ $event->id }}/{{ $event->user->id }}" method="POST">
                 @csrf
+
                 <button type="submit" class="px-4 py-2 mt-6 rounded text-white text-sm tracking-wider border-none outline-none bg-pink-500 hover:bg-purple-600">Reserve</button>
 
             </form>

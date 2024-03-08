@@ -30,5 +30,8 @@ class Event extends Model
     {
         return $this->belongsTo(user::class, 'user_id');
     }
-
+    public function reservation()
+    {
+        return $this->hasMany(Reservation::class, 'event_id');
+    }
 }

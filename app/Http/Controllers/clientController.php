@@ -22,12 +22,11 @@ class ClientController extends Controller
         if ($searchQuery) {
             $eventsQuery->where('titre', 'like', '%' . $searchQuery . '%');
         }
-
         if ($categoryId) {
             $eventsQuery->where('id_categorie', $categoryId);
         }
 
-        $eventsQuery->where('status', '1')->orderBy('date', 'desc');
+        $eventsQuery->where('status', '1')->with('user')->orderBy('date', 'desc');
 
         $events = $eventsQuery->paginate(4);
 
@@ -42,8 +41,9 @@ class ClientController extends Controller
 
         return view('client.client', compact('events', 'categories'));
     }
-    public function ReserveEvent($eventId)
+    public function ReserveEvent($eventId , $userId)
     {
+        $userId =auth::id();
         try {
             $event = event::where('id', $eventId)->first();
             if ($event->nbPlacesRester > '0') {
@@ -52,7 +52,7 @@ class ClientController extends Controller
                         [
                             'status' => '0',
                             'event_id' => $eventId,
-                            'user_id' => Auth::id(),
+                            'user_id' => $userId,
                         ]
                     );
 
@@ -62,7 +62,7 @@ class ClientController extends Controller
                         [
                             'status' => '1',
                             'event_id' => $eventId,
-                            'user_id' => Auth::id(),
+                            'user_id' => $userId,
                         ]
 
                     );

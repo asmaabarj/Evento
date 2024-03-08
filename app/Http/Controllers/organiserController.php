@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Event;
 use App\Models\Categorie;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,4 +54,31 @@ class OrganiserController extends Controller
         $events=Event::where('status','!=','3')->where('user_id',$organiserId)->with('categorie')->get();
         return view('organisateur.manageEvent',compact('events'));
     }
+
+    public function CheckReservation()
+{
+    $organizer = Event::where('user_id', Auth::id())->get();
+    $eventIds = [];
+    foreach ($organizer as $event) {
+        $eventIds[] = $event->id;
+    }
+    $reservations = Reservation::where('status', '0')
+        ->whereIn('event_id', $eventIds)
+        ->with('event')
+        ->get();
+    return view('organisateur.manageReservation', [
+        'reservations' => $reservations,
+    ]);
+}
+public function acceptReservation(Request $request, $reservationId)
+    {
+        $reservation = Reservation::findOrFail($reservationId);
+        
+        $reservation->status = '1';
+        $reservation->save();
+
+        return redirect()->back();
+
+    }
+
 }

@@ -14,4 +14,12 @@ class Reservation extends Model
         'status',
 
     ];
+    public function event()
+    {
+        return $this->belongsTo(event::class, 'event_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(user::class, 'user_id');
+    }
 }

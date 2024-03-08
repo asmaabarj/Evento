@@ -67,9 +67,8 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
     })->name('organisateur');
     Route::match(['get', 'post'], '/addEvent', [OrganiserController::class, 'store'])->name('addEvent');
     Route::get('/manageEvent', [OrganiserController::class, 'index']);
-    Route::get('/manageReservation', function () {
-        return view('organisateur.manageReservation');
-    })->name('manageReservation');
+    Route::get('/manageReservation', [OrganiserController::class, 'CheckReservation']);
+    Route::post('/reservation/{id}/accept', [OrganiserController::class, 'acceptReservation'])->name('reservation.accept');
 
 });
 
@@ -80,5 +79,6 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
 
 Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('/client', [clientController::class, 'index'])->name('client');
-    Route::post('/reserveEvent/{eventId}', [clientController::class, 'reserveEvent']);
+    Route::post('/reserveEvent/{eventId}/{user_id}', [clientController::class, 'reserveEvent']);
+    
 });
