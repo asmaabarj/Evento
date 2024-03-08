@@ -78,7 +78,35 @@ public function acceptReservation(Request $request, $reservationId)
         $reservation->save();
 
         return redirect()->back();
-
+        
     }
+    public function showEvents()
+{
+    $automaticEvents = Event::where('acceptation', 'automatique')->where('user_id', Auth::id())->get();
+    
+    foreach ($automaticEvents as $event) {
+        $event->reservationCount = Reservation::where('event_id', $event->id)->where('status', '1')->count();
+        $event->totalEarnings = Reservation::join('events', 'reservations.event_id', '=', 'events.id')
+            ->where('reservations.event_id', $event->id)
+            ->where('reservations.status', '1')
+            ->sum('events.price');
+    }
+
+    $manualEvents = Event::where('acceptation', 'manuelle')->where('user_id', Auth::id())->get();
+
+    foreach ($manualEvents as $event) {
+        $event->acceptedReservationsCount = Reservation::where('event_id', $event->id)->where('status', '1')->count();
+        $event->notAcceptedReservationsCount = Reservation::where('event_id', $event->id)->where('status', '0')->count();
+        $event->totalEarnings = Reservation::join('events', 'reservations.event_id', '=', 'events.id')
+            ->where('reservations.event_id', $event->id)
+            ->where('reservations.status', '1')
+            ->sum('events.price');
+    }
+
+    return view('organisateur.organisateur', compact('automaticEvents', 'manualEvents'));
+}
+
+    
+
 
 }
