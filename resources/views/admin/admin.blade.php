@@ -13,7 +13,7 @@
 <body class="w-[100%] ">
     @include('layouts.sideBarAdmin')
 
-    <div class="w-[80%] ml-auto bg-gray-50 p-8 font-sans">
+    <div class="w-[80%] ml-auto bg-gray-0 p-8 font-sans">
         <div class="container mx-auto">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="bg-white flex gap-5 items-center rounded-lg shadow-md p-6">

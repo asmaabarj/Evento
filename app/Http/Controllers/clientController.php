@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Event;
-use App\Models\Categorie; 
+use App\Models\Categorie;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,9 +14,9 @@ class ClientController extends Controller
 {
     public function index(Request $request)
     {
+        $selectedEvent= null;
         $searchQuery = $request->input('search');
         $categoryId = $request->input('category');
-
         $eventsQuery = Event::query();
 
         if ($searchQuery) {
@@ -39,11 +39,11 @@ class ClientController extends Controller
 
         $categories = Categorie::where('status', '1')->get();
 
-        return view('client.client', compact('events', 'categories'));
+        return view('client.client', compact('events', 'categories','selectedEvent'));
     }
-    public function ReserveEvent($eventId , $userId)
+    public function ReserveEvent($eventId, $userId)
     {
-        $userId =auth::id();
+        $userId = auth::id();
         try {
             $event = event::where('id', $eventId)->first();
             if ($event->nbPlacesRester > '0') {
