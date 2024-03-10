@@ -23,6 +23,8 @@ return new class extends Migration
             $table->integer('nbPlacesRester');
             $table->enum('acceptation', ['manuelle', 'automatique'])->default('automatique');
             $table->string('price');
+            $table->softDeletes();
+
             $table->foreignId('id_categorie')->constrained('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('status', ['1', '0','2','3'])->default('0');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use App\Providers\RouteServiceProvider;
+use App\Http\Requests\Auth\LoginRequest;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -24,24 +25,28 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
-    
-        $request->session()->regenerate();
-    
-        $user = auth()->user();
-    
-        if ($user->admin) {
-            return redirect()->intended(route('admin'));
-        } elseif ($user->organisateur) {
-            return redirect()->intended(route('organisateur'));
-        } elseif ($user->client) {
-            return redirect()->intended(route('client'));
-        } else {
-            // Default redirect for other roles or no specific role
-            return redirect()->intended(route('login'));
-        }
+{
+    $userBanned = User::withTrashed()->where('email', $request->email)->first();
+    if ($userBanned && $userBanned->trashed()) {
+        return redirect('login')->with('error', 'Your account has been banned');
     }
+
+    $request->authenticate();
+
+    $request->session()->regenerate();
+
+    $user = auth()->user();
+
+    if ($user->admin) {
+        return redirect()->intended(route('admin'));
+    } elseif ($user->organisateur) {
+        return redirect()->intended(route('organisateur'));
+    } elseif ($user->client) {
+        return redirect()->intended(route('client'));
+    } else {
+        return redirect()->intended(route('login'));
+    }
+}
 
     /**
      * Destroy an authenticated session.

@@ -41,21 +41,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/addCategory', function () {
         return view('admin.addCategory');
     })->name('addCategory');
-    Route::get('/manageClient', function () {
-        return view('admin.manageClient');
-    })->name('manageClient');
+    Route::get('/manageClient',  [AdminController::class, 'banClient']);
+    Route::get('/manageOrganizer',  [AdminController::class, 'banOrganizer']);
     Route::get('/manageEvents', [AdminController::class, 'manageEvents'])->name('manageEvents'); 
     Route::post('/updateCategorie', [AdminController::class, 'updateCategorie']);
     Route::match(['get', 'post'], '/editCatgory', [AdminController::class, 'index']);
-    Route::get('/manageOrganizer', function () {
-        return view('admin.manageOrganizer');
-    })->name('manageOrganizer');
     Route::post('/categories', [AdminController::class, 'store'])->name('categories.store');
     Route::get('/manageCategory', [AdminController::class, 'index'])->name('manageCategory');
     Route::delete('/categories/{id}', [AdminController::class, 'destroy'])->name('categories.destroy');
     Route::post('/events/{id}/accept', [AdminController::class, 'acceptEvent'])->name('events.accept');
     Route::post('/events/{id}/refuse', [AdminController::class, 'refuseEvent'])->name('events.refuse');
-
+    Route::delete('/archiveUser/{id}/', [AdminController::class, 'archiveUser']);
 });
 
 

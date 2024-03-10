@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Event;
 use App\Models\client;
 use App\Models\Categorie;
+use App\Models\Reservation;
 use App\Models\organisateur;
 use Illuminate\Http\Request;
 
@@ -88,4 +90,43 @@ public function refuseEvent($id)
     $event->update(['status' => '2']);
     return redirect()->back()->with('success', 'Event refused');
 }
+
+public function banClient(){
+    $clients=client::all();
+    return view('admin.manageClient',compact('clients'));
+}
+public function banOrganizer(){
+    $organizers=organisateur::all();
+    return view('admin.manageOrganizer',compact('organizers'));
+}
+
+public function archiveUser($id)
+    {
+        $organizer =  organisateur::where('user_id', $id)->value('id');
+        $events = event::where('user_id', $id)->get();
+        $client =  client::where('user_id', $id)->value('id');
+        $user = User::find($id);
+
+        if ($organizer) {
+            $user->delete();
+            organisateur::where('user_id', $id)->delete();
+            event::where('user_id', $id)->delete();
+            foreach ($events as $event) {
+
+                Reservation::where('event_id', $event->id)->delete();
+            }
+            return redirect()->back()->with('success', 'User Banned successfully');
+        }
+        if ($client) {
+            $user->delete();
+            client::where('user_id', $id)->delete();
+            Reservation::where('user_id', $id)->delete();
+            return redirect()->back()->with('success', 'User Banned successfully');
+        }
+
+
+
+        return redirect()->back()->with('error', 'User not found');
+    }
+
 }
