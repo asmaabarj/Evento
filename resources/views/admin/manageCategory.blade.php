@@ -7,9 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>All Categories</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 </head>
 
-<body class="w-full">
+<body class="w-full bg-gray-50">
 
     @if (session('success'))
         <div id="success-message"
@@ -24,10 +26,11 @@
         </script>
     @endif
 
+    @include('layouts.navBar')
     @include('layouts.sideBarAdmin')
 
-    <div class="w-[80%] mt-10  flex justify-center   bg-white rounded-md overflow-hidden ">
-        <div class="py-4 shadow-xl w-[45%]">
+    <div class="lg:w-[80%] mt-10  flex justify-center   bg-gray-50 rounded-md overflow-hidden ">
+        <div class="py-4 shadow-xl md:w-[45%]">
             <div class="overflow-x-auto">
                 <table class="min-w-full  bg-white font-[sans-serif]">
                     <thead class="whitespace-nowrap bg-gradient-to-r from-pink-500 to-purple-500 rounded">
@@ -137,10 +140,7 @@
                             <button id="" type="submit"
                                 class="md:w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-800 text-base font-medium text-white hover:bg-purple/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm">
                                 Update category
-
-
                             </button>
-
                         </div>
                     </form>
                 @endif

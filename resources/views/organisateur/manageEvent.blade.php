@@ -11,8 +11,10 @@
 </head>
 <body class="w-[100%] ">
     @include('layouts.sideBarOrganizer')
+    @include('layouts.navBar')
+
     <div
-    class=" w-[80%] ml-auto mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 mb-4  md:px-12 px-4 pb-14">
+    class=" lg:w-[80%] md:ml-auto mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 mb-4  md:px-12 px-4 pb-14">
     @foreach($events as $event)
     <div class="relative mx-auto w-full">
         <a href="#"
@@ -90,5 +92,11 @@
     </div>
     @endforeach
     </div>
+    <script>
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>

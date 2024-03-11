@@ -73,12 +73,12 @@
         <script>
             setTimeout(function() {
                 document.getElementById('success-message').style.display = 'none';
-            }, 2000);
+            }, 3000);
         </script>
     @endif
 
     <div
-        class="bg-white flex px-4 py-3 mt-32 border-b-[2px] border-[#d869d291]  focus-within:border-pink-500 overflow-hidden max-w-xl mx-auto font-[sans-serif]">
+        class="bg-white flex px-4 py-3 mt-32 border-b-[2px] border-[#d869d291]  focus-within:border-pink-500 overflow-hidden lg:max-w-xl mx-auto font-[sans-serif]">
         <form action="{{ route('client') }}" method="GET" class="flex">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904" width="18px"
                 class="fill-gray-600 mr-3">
@@ -96,7 +96,7 @@
             <h2 class="text-3xl font-extrabold text-[#333]">LATEST EVENTS</h2>
 
             <div
-                class="bg-white flex px-2 py-2 rounded-full border  border-purple-500 overflow-hidden max-w-[22vw] mt-10  font-[sans-serif]">
+                class="bg-white flex px-2 py-2 rounded-full border  border-purple-500 overflow-hidden md:max-w-[50%] lg:max-w-[24vw] mt-10  font-[sans-serif]">
                 <form action="{{ route('client') }}" method="GET" class="grid grid-cols-2">
                     <select name="category" class="w-full outline-none bg-white pl-4 text-sm text-black">
                         <option value="">Select Category</option>
@@ -105,12 +105,13 @@
                         @endforeach
                     </select>
                     <button type="submit"
-                        class="bg-gradient-to-r from-pink-500 to-purple-500  transition-all text-white text-sm rounded-full px-5 py-2.5">Filter</button>
+                        class="bg-gradient-to-r from-pink-500 to-purple-500  transition-all text-white text-sm rounded-full  py-2.5">Filter</button>
                 </form>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mt-12">
+            <div class="grid grid-cols-1  lg:grid-cols-2 gap-8 mt-12">
                 @foreach ($events as $event)
+                <div>
                     <div class="bg-white cursor-pointer rounded overflow-hidden group"
                         onclick="toggleModal('eventDetails{{ $event->id }}')">
                         <div class="relative overflow-hidden">
@@ -121,13 +122,15 @@
                                 {{ date('Y-m-d', strtotime($event->date)) }} AT
                                 {{ date('H:i', strtotime($event->date)) }}</div>
                         </div>
+                    </div>
+    
                         <div class="p-6">
                             <h4 class="text-sm font-medium text-gray-500">{{ $event->user->name }}</h4>
                             <h3 class="text-xl font-bold text-[#333]">{{ $event->titre }}</h3>
                             <h6 class="text-lg font-bold text-gray-900"> <i class='bx bx-map'></i>
                                 {{ $event->lieu }}</h6>
                             <div class="flex  mt-4 justify-between">
-                                <p class="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                                <p class="inline-flex  xl:flex-row xl:items-center text-gray-800">
                                     <i class='bx bx-purchase-tag-alt bx-rotate-90'></i>
                                     <span class="mt-2 xl:mt-0 ml-2">
                                         {{ $event->price }} MAD
@@ -145,11 +148,11 @@
                                     class="px-4 py-2 mt-6 rounded text-white text-sm tracking-wider border-none outline-none bg-pink-500 hover:bg-purple-600">Reserve</button>
                             </form>
                         </div>
-                    </div>
+                </div>    
                     <div id="eventDetails{{ $event->id }}" class="fixed hidden top-0 bottom-0 left-0 right-0 bg-black/60 z-50" onclick="toggleModal('eventDetails{{ $event->id }}')">
                         <div class="">
 
-                            <div class="font-[sans-serif] w-[60vw] fixed top-[27%] left-[20%]  p-8 rounded-md mx-auto shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] bg-white  my-12">
+                            <div class="font-[sans-serif] lg:w-[60vw] w-[90%] fixed top-[20%] left-0 right-0  p-8 rounded-md mx-auto shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] bg-white  my-12">
                                 <img src="{{ asset('storage/' . $event->photo) }}" class="w-80 h-48 rounded-[5px] absolute right-0 left-0 mx-auto -top-24" />
                                 <div class="mt-20 text-center">
                                     <p class="text-sm text-right text-[#333] leading-relaxed"> <span class="text-[#111] font-bold">Category : </span>{{ $event->categorie->titre}}</p>
@@ -169,7 +172,6 @@
             </div>
         </div>
     </div>
-
 
 
 

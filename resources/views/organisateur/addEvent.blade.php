@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Add Event</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 </head>
 <body class="w-[100%]">
     @if (session('success'))
@@ -18,10 +20,13 @@
             }, 10000);
         </script>
     @endif
+    
     @include('layouts.sideBarOrganizer')
-    <div class="w-[80%] mt-8 ml-auto bg-white rounded-md overflow-hidden">
+    @include('layouts.navBar')
+
+    <div class="lg:w-[80%] mt-8 lg:ml-auto  bg-white rounded-md overflow-hidden">
         <div class="py-4 px-10">
-            <form action="{{ route('addEvent') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-8">
+            <form action="{{ route('addEvent') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 @csrf
                 <div class="mb-2">
                     <label for="titre" class="block text-gray-700 text-sm font-bold mb-2">Title:</label>
@@ -80,5 +85,11 @@
             </form>
         </div>
     </div>
+    <script>
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>

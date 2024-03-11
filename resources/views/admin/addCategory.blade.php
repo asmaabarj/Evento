@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Add Category</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="w-full">
+<body class="w-full bg-gray-50">
     @if (session('success'))
         <div id="success-message"
             class="bg-purple-500  fixed right-20  top-50 z-50 text-white p-4 text-center animate-bounce mb-4">
@@ -22,9 +23,10 @@
             }, 5000);
         </script>
     @endif
+    @include('layouts.navBar')
     @include('layouts.sideBarAdmin')
 
-    <div class="w-[80%] mt-12 ml-auto bg-white rounded-md overflow-hidden shadow-md">
+    <div class="lg:w-[80%] pt-10  ml-auto bg-white rounded-md overflow-hidden shadow-md">
         <div class="py-4 px-10">
             <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -43,7 +45,12 @@
             </form>
         </div>
     </div>
-
+<script>
+      function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.toggle('hidden');
+        }
+</script>
 </body>
 
 </html>

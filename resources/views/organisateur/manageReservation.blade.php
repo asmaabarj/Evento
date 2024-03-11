@@ -6,12 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
 <body class="w-[100%] ">
     @include('layouts.sideBarOrganizer')
+    @include('layouts.navBar')
 
-    <div class=" flex items-center justify-center mt-8">
+    <div class=" lg:w-[80%] lg:ml-auto flex  justify-center mt-8">
         <table class=" bg-white shadow-md rounded-lg overflow-hidden">
             <thead class="bg-gradient-to-r from-pink-500 to-purple-500 text-white">
                 <tr>
@@ -40,5 +42,11 @@
             </tbody>
         </table>
     </div>
+    <script>
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>

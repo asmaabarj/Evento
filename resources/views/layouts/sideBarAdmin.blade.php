@@ -1,7 +1,8 @@
 
-<nav
-class="w-[20%] bg-white shadow-lg h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto">
+<nav id="sideBar"
+class="w-[20%] bg-white hidden lg:block shadow-lg h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto">
 
+       
 <ul class="mt-6">
     <li>
         <a href="/admin"

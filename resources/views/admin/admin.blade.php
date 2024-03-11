@@ -7,13 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 
 </head>
 
-<body class="w-[100%] ">
+<body class="w-[100%] bg-gray-50">
+    @include('layouts.navBar')
     @include('layouts.sideBarAdmin')
 
-    <div class="w-[80%] ml-auto bg-gray-0 p-8 font-sans">
+    <div class="lg:w-[80%] md:ml-auto bg-gray-0 p-8 font-sans">
         <div class="container mx-auto">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="bg-white flex gap-5 items-center rounded-lg shadow-md p-6">
@@ -155,3 +158,10 @@
             </div>
         </section>
     </div>
+    <script>
+        function toggleModal(modalId) {
+              const modal = document.getElementById(modalId);
+              modal.classList.toggle('hidden');
+          }
+  </script>
+</body>
