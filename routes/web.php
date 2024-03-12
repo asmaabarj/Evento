@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\clientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\organiserController;
+use App\Http\Controllers\welcomeController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 
 /*
@@ -20,12 +21,21 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
+    
 })->middleware(RedirectIfAuthenticated::class);
 
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-//-----------------------------------ADMIN--------------------------------------
+require __DIR__.'/auth.php';
+
+
+//-----------------------------------------admin---------------------------------------------
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'adminPage'])->name('admin');
@@ -46,9 +56,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 
-// --------------------------------------ORGANISATEUR-------------------------------------------------------
 
-    Route::middleware(['auth', 'role:organisateur'])->group(function () {
+
+// ------------------------------------------organisateur---------------------------------------------------
+
+Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::get('/organisateur', [OrganiserController::class, 'showEvents'])->name('organisateur');
     Route::match(['get', 'post'], '/addEvent', [OrganiserController::class, 'store'])->name('addEvent');
     Route::get('/manageEvent', [OrganiserController::class, 'index'])->name('manageEvent');
@@ -63,9 +75,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
 
-
-
-// ---------------------------------------CLIENT------------------------------------------------------
+// --------------------------------------client-------------------------------------------------------
 
 Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('/client', [clientController::class, 'index'])->name('client');

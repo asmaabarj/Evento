@@ -115,14 +115,11 @@ public function refuseEvent($id)
 }
 
 
-
     // ----------la fonction  d'afficher les clients---------------------
 public function banClient(){
     $clients=client::all();
     return view('admin.manageClient',compact('clients'));
 }
-
-
 
     // ----------la fonction d'afficher les organisateurs---------------------
 
@@ -130,8 +127,6 @@ public function banOrganizer(){
     $organizers=organisateur::all();
     return view('admin.manageOrganizer',compact('organizers'));
 }
-
-
     // ----------la fonction de banner un utilisateur---------------------
 
 public function archiveUser($id)
