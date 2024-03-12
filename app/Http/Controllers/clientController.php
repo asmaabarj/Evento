@@ -14,7 +14,7 @@ class ClientController extends Controller
 {
     public function index(Request $request)
     {
-        $selectedEvent= null;
+        $selectedEvent = null;
         $searchQuery = $request->input('search');
         $categoryId = $request->input('category');
         $eventsQuery = Event::query();
@@ -36,10 +36,12 @@ class ClientController extends Controller
                 $event->save();
             }
         }
+        $countReservation = Reservation::where('status', '1')->where('user_id', auth::id())->count();
+
 
         $categories = Categorie::where('status', '1')->get();
 
-        return view('client.client', compact('events', 'categories','selectedEvent'));
+        return view('client.client', compact('events', 'categories', 'selectedEvent', 'countReservation'));
     }
     public function ReserveEvent($eventId, $userId)
     {
@@ -77,5 +79,21 @@ class ClientController extends Controller
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->view('errors.404', [], 404);
         }
+    }
+
+    public function Reservations()
+    {
+        $reservations = Reservation::where('status', '1')->where('user_id', auth::id())->get();
+        $countReservation = Reservation::where('status', '1')->where('user_id', auth::id())->count();
+
+        return view('client.Reservations', compact('reservations', 'countReservation'));
+    }
+
+    
+    public function tickets($idResevation)
+    {
+        $reservation = Reservation::findOrFail($idResevation);
+        $countReservation = Reservation::where('status', '1')->where('user_id', auth::id())->count();
+        return view('client.tickets', compact('reservation', 'countReservation'));
     }
 }

@@ -18,7 +18,7 @@
             @include('layouts.navBar')
 
         </div>
-        <div class="lg:w-4/5 p-4 md:px-8 md:py-12">
+        <div class="lg:w-4/5 p-4 md:px-8 md:py-12 overflow-x-auto">
             <div class="lg:flex grid grid-cols-1 lg:justify-between mb-8">
                 <div class="w-full lg:w-2/5 md:mr-4 ">
                     <h2 class="text-lg text-gray-600 font-bold mb-4 ">Automatic Events Table</h2>
@@ -72,12 +72,7 @@
             </div>
         </div>
     </div>
-    <script>
-        function toggleModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.toggle('hidden');
-        }
-    </script>
+    
 </body>
 
 </html>

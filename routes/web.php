@@ -25,16 +25,7 @@ Route::get('/', function () {
 
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
-
-
-//-------------------------------------------------------------------------
+//-----------------------------------ADMIN--------------------------------------
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'adminPage'])->name('admin');
@@ -55,14 +46,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 
-// ---------------------------------------------------------------------------------------------
+// --------------------------------------ORGANISATEUR-------------------------------------------------------
 
-Route::middleware(['auth', 'role:organisateur'])->group(function () {
+    Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::get('/organisateur', [OrganiserController::class, 'showEvents'])->name('organisateur');
     Route::match(['get', 'post'], '/addEvent', [OrganiserController::class, 'store'])->name('addEvent');
     Route::get('/manageEvent', [OrganiserController::class, 'index'])->name('manageEvent');
     Route::get('/manageReservation', [OrganiserController::class, 'checkReservation'])->name('manageReservation');
     Route::post('/reservation/{id}/accept', [OrganiserController::class, 'acceptReservation'])->name('reservation.accept');
+    Route::get('/editEvent', [OrganiserController::class, 'store'])->name('editEvent');
+    Route::post('/updateEvent/{id}', [OrganiserController::class, 'updateEvent'])->name('updateEvent');
+    Route::post('/deletEvent/{id}', [OrganiserController::class, 'deletEvent'])->name('deletEvent');
     Route::get('/manualEvents', [OrganiserController::class, 'showEvents'])->name('manualEvents');
 });
 
@@ -71,10 +65,12 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
 
 
 
-// ---------------------------------------------------------------------------------------------
+// ---------------------------------------CLIENT------------------------------------------------------
 
 Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('/client', [clientController::class, 'index'])->name('client');
     Route::post('/reserveEvent/{eventId}/{user_id}', [clientController::class, 'reserveEvent']);
-    
+    Route::get('/Reservations', [clientController::class, 'Reservations']);
+    Route::get('/tickets/{idReservation}', [ClientController::class, 'tickets'])->name('tickets');
+
 });

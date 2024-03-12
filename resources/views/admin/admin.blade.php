@@ -70,7 +70,7 @@
                         </svg>
                     </div>
                     <div class="">
-                        <p class="text-3xl font-bold text-gray-800">{{$eventCount}}</p>
+                        <p class="text-3xl font-bold text-gray-800">{{ $eventCount }}</p>
                         <p class="text-gray-600 text-lg mt-1">Events</p>
                     </div>
                 </div>
@@ -99,30 +99,31 @@
                         </tr>
                     </thead>
                     <tbody class="whitespace-nowrap">
-                        @foreach($events as $event)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-3 text-sm">
-                                <div class="flex items-center cursor-pointer">
-                                    <img src='{{ asset('storage/' . $event->photo) }}'
-                                        class="w-9 h-9 rounded-md shrink-0" />
-                                    <div class="ml-4">
-                                        <p class="text-sm text-black">{{$event->titre}}</p>
+                        @foreach ($events as $event)
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-3 text-sm">
+                                    <div class="flex items-center cursor-pointer">
+                                        <img src='{{ asset('storage/' . $event->photo) }}'
+                                            class="w-9 h-9 rounded-md shrink-0" />
+                                        <div class="ml-4">
+                                            <p class="text-sm text-black">{{ $event->titre }}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-3 text-sm">
-                                {{$event->user->name}}
-                            </td>
-                            <td class="px-6 py-3 text-sm">
-                                {{$event->categorie->titre}}
-                            </td>
-                            <td class="px-6 py-3 text-sm">
-                                {{ date('Y-m-d', strtotime($event->date)) }} / {{ date('H:i', strtotime($event->date)) }}
-                            </td>
-                            <td class="px-6 py-3 text-sm">
-                                {{$event->lieu}}
-                            </td>
-                        </tr>
+                                </td>
+                                <td class="px-6 py-3 text-sm">
+                                    {{ $event->user->name }}
+                                </td>
+                                <td class="px-6 py-3 text-sm">
+                                    {{ $event->categorie->titre }}
+                                </td>
+                                <td class="px-6 py-3 text-sm">
+                                    {{ date('Y-m-d', strtotime($event->date)) }} /
+                                    {{ date('H:i', strtotime($event->date)) }}
+                                </td>
+                                <td class="px-6 py-3 text-sm">
+                                    {{ $event->lieu }}
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -140,28 +141,23 @@
                         </tr>
                     </thead>
                     <tbody class="whitespace-nowrap">
-                        @foreach($categories as $category)
-                        <tr class="hover:bg-gray-50">
-                            
-                            <td class="px-6 py-3 text-sm">
-                                {{ $category->titre }}
-                            </td>
-                            <td class="px-6 py-3 text-sm">
-                                {{ $eventCounts[$category->id] }}
-                            </td>
-                    
-                        </tr>
+                        @foreach ($categories as $category)
+                            <tr class="hover:bg-gray-50">
+
+                                <td class="px-6 py-3 text-sm">
+                                    {{ $category->titre }}
+                                </td>
+                                <td class="px-6 py-3 text-sm">
+                                    {{ $eventCounts[$category->id] }}
+                                </td>
+
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
-                
+
             </div>
         </section>
     </div>
-    <script>
-        function toggleModal(modalId) {
-              const modal = document.getElementById(modalId);
-              modal.classList.toggle('hidden');
-          }
-  </script>
+
 </body>

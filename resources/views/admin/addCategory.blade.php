@@ -10,19 +10,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
+
 <body class="w-full bg-gray-50">
     @if (session('success'))
         <div id="success-message"
             class="bg-purple-500  fixed right-20  top-50 z-50 text-white p-4 text-center animate-bounce mb-4">
             {{ session('success') }}
         </div>
-
         <script>
             setTimeout(function() {
                 document.getElementById('success-message').style.display = 'none';
             }, 5000);
         </script>
     @endif
+
     @include('layouts.navBar')
     @include('layouts.sideBarAdmin')
 
@@ -35,7 +36,6 @@
                     <input type="text" id="category_name" name="category_name"
                         class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-purple-500" required>
                 </div>
-
                 <div class="flex justify-end">
                     <button type="submit"
                         class="px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
@@ -45,12 +45,7 @@
             </form>
         </div>
     </div>
-<script>
-      function toggleModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.toggle('hidden');
-        }
-</script>
+
 </body>
 
 </html>

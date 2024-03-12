@@ -40,22 +40,14 @@
                                 @method('DELETE')
                                 <input type="hidden" name="role" value="organizer">
                                 <button type="submit" class="bg-red-600 rounded px-4 py-2 text-white">Ban</button>
-
-
                             </form>
                         </td>
-
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-    <script>
-        function toggleModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.toggle('hidden');
-        }
-    </script>
+
 </body>
 
 </html>

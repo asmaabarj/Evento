@@ -11,42 +11,10 @@
 </head>
 
 <body>
-    <div class="py-4 px-6  bg-white  flex items-center shadow-md shadow-black/5 sticky -top-0.5 left-0 z-30">
-        <ul class="flex items-center text-sm ml-4">
-            <li class="mr-2">
-                <a href="/admin"
-                    class="text-gra-700 text-md hover:text-white font-semibold flex items-center gap-2"><img
-                        src="{{ asset('storage/images/' . 'logo.png') }}" alt="logo" class="w-24"> </a>
-            </li>
-        </ul>
-        <div class="md:absolute md:right-10 md:flex md:items-center max-md:ml-auto">
 
-            <div class=" inline-block w- border-gray-300 border-l-2 pl-6 cursor-pointer ">
-                <button onclick="toggleModal('ProfilPop')"><svg class="mt-2" fill="#883c99"
-                        xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                        <path class="outline-none"
-                            d="M80-160v-160h160v160H80Zm240 0v-160h560v160H320ZM80-400v-160h160v160H80Zm240 0v-160h560v160H320ZM80-640v-160h160v160H80Zm240 0v-160h560v160H320Z" />
-                    </svg>
-                </button>
-                <div class="absolute z-50 w-[120px] hidden h-[85px] md:top-full rounded-md right-2 drop-shadow-2xl"
-                    id="ProfilPop">
-                    <div class="h-[50%]"> <a href=""> <span
-                                class="absolute md:mt-2.5   rounded-[0.37rem] bg-red-800 px-[0.45em] py-[0.2em] text-[0.6rem] leading-none text-white">1</span>
-                        </a>
-                        <a href='/eventsAccept'
-                            class='hover:bg-[#49566f] rounded-t-md duration-300 hover:text-white w-full h-full bg-white text-gray-600 font-bold text-[15px] flex items-center pl-4'>Tickets</a>
-                    </div>
-                    <a href='/logout'
-                        class='hover:bg-[#49566f] rounded-b-md duration-300 hover:text-white w-full h-[50%] bg-gray-300 text-gray-600 font-bold text-[15px] flex items-center pl-4'>log
-                        out</a>
-                </div>
-            </div>
-            <a href="/eventsAccept"> <span
-                    class="absolute md:-mt-2.5   rounded-[0.37rem] bg-red-800 px-[0.45em] py-[0.2em] text-[0.6rem] leading-none text-white">1</span>
-            </a>
+    @include('layouts.navbarClient')
 
-        </div>
-    </div>
+
     @if (session('success'))
         <div id="success-message"
             class="fixed inset-0 px-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
@@ -111,19 +79,19 @@
 
             <div class="grid grid-cols-1  lg:grid-cols-2 gap-8 mt-12">
                 @foreach ($events as $event)
-                <div>
-                    <div class="bg-white cursor-pointer rounded overflow-hidden group"
-                        onclick="toggleModal('eventDetails{{ $event->id }}')">
-                        <div class="relative overflow-hidden">
-                            <img src='{{ asset('storage/' . $event->photo) }}' alt="Blog Post 1"
-                                class="w-full h-[44vh] object-cover group-hover:scale-125 transition-all duration-300" />
-                            <div
-                                class="px-4 py-2.5 text-white text-sm tracking-wider bg-gradient-to-r from-pink-500 to-purple-500 absolute bottom-0 right-0">
-                                {{ date('Y-m-d', strtotime($event->date)) }} AT
-                                {{ date('H:i', strtotime($event->date)) }}</div>
+                    <div>
+                        <div class="bg-white cursor-pointer rounded overflow-hidden group"
+                            onclick="toggleModal('eventDetails{{ $event->id }}')">
+                            <div class="relative overflow-hidden">
+                                <img src='{{ asset('storage/' . $event->photo) }}' alt="Blog Post 1"
+                                    class="w-full h-[44vh] object-cover group-hover:scale-125 transition-all duration-300" />
+                                <div
+                                    class="px-4 py-2.5 text-white text-sm tracking-wider bg-gradient-to-r from-pink-500 to-purple-500 absolute bottom-0 right-0">
+                                    {{ date('Y-m-d', strtotime($event->date)) }} AT
+                                    {{ date('H:i', strtotime($event->date)) }}</div>
+                            </div>
                         </div>
-                    </div>
-    
+
                         <div class="p-6">
                             <h4 class="text-sm font-medium text-gray-500">{{ $event->user->name }}</h4>
                             <h3 class="text-xl font-bold text-[#333]">{{ $event->titre }}</h3>
@@ -148,21 +116,27 @@
                                     class="px-4 py-2 mt-6 rounded text-white text-sm tracking-wider border-none outline-none bg-pink-500 hover:bg-purple-600">Reserve</button>
                             </form>
                         </div>
-                </div>    
-                    <div id="eventDetails{{ $event->id }}" class="fixed hidden top-0 bottom-0 left-0 right-0 bg-black/60 z-50" onclick="toggleModal('eventDetails{{ $event->id }}')">
+                    </div>
+                    <div id="eventDetails{{ $event->id }}"
+                        class="fixed hidden top-0 bottom-0 left-0 right-0 bg-black/60 z-50"
+                        onclick="toggleModal('eventDetails{{ $event->id }}')">
                         <div class="">
 
-                            <div class="font-[sans-serif] lg:w-[60vw] w-[90%] fixed top-[20%] left-0 right-0  p-8 rounded-md mx-auto shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] bg-white  my-12">
-                                <img src="{{ asset('storage/' . $event->photo) }}" class="w-80 h-48 rounded-[5px] absolute right-0 left-0 mx-auto -top-24" />
+                            <div
+                                class="font-[sans-serif] lg:w-[60vw] w-[90%] fixed top-[20%] left-0 right-0  p-8 rounded-md mx-auto shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] bg-white  my-12">
+                                <img src="{{ asset('storage/' . $event->photo) }}"
+                                    class="w-80 h-48 rounded-[5px] absolute right-0 left-0 mx-auto -top-24" />
                                 <div class="mt-20 text-center">
-                                    <p class="text-sm text-right text-[#333] leading-relaxed"> <span class="text-[#111] font-bold">Category : </span>{{ $event->categorie->titre}}</p>
+                                    <p class="text-sm text-right text-[#333] leading-relaxed"> <span
+                                            class="text-[#111] font-bold">Category :
+                                        </span>{{ $event->categorie->titre }}</p>
                                     <p class="text-sm mt-6  text-[#333] leading-relaxed">{{ $event->description }}.</p>
                                     <h6 class="text-sm font-bold text-gray-900"> <i class='bx bx-map'></i>
                                         {{ $event->lieu }}</h6>
-                                        <h6 class="text-xs font-bold text-gray-900"> Date :
-                                            {{ date('Y-m-d', strtotime($event->date)) }}</h6>
-                                            <h6 class="text-xs font-bold text-gray-900"> Time :
-                                                {{ date('H:i', strtotime($event->date)) }}</h6>
+                                    <h6 class="text-xs font-bold text-gray-900"> Date :
+                                        {{ date('Y-m-d', strtotime($event->date)) }}</h6>
+                                    <h6 class="text-xs font-bold text-gray-900"> Time :
+                                        {{ date('H:i', strtotime($event->date)) }}</h6>
                                     <h4 class="text-base font-extrabold mt-8"> {{ $event->titre }} </h4>
                                 </div>
                             </div>
@@ -173,18 +147,7 @@
         </div>
     </div>
 
-
-
-
     <div class="flex justify-center  my-10"> {{ $events->links() }}</div>
-    <script>
-        function toggleModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.toggle('hidden');
-        }
-    </script>
-
-
 
 </body>
 

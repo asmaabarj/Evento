@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-  
+      //    --------------la fonction d'afficher les categories------------------- 
     public function index(Request $request)
     {
         $categories = Categorie::where('status', '1')->get();
@@ -27,6 +27,9 @@ class AdminController extends Controller
         ]);
     }
 
+
+
+    // ------------------les statistiques administrateur---------------------------------
     public function adminPage()
     {
         $categories = Categorie::where('status', '1')->get();
@@ -46,6 +49,8 @@ class AdminController extends Controller
     }
 
 
+
+// ------------------------ la fonction de ajouter une categorie--------------------------------
     public function store(Request $request)
     {
         $request->validate([
@@ -57,12 +62,21 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Category added successfully!');
     }
 
+
+
+
+// ----------------la fonction de supprimer une categorie-------------
     public function destroy($id)
     {
         $category = Categorie::findOrFail($id);
         $category->update(['status' => '0']);
         return redirect()->back()->with('success', 'Category deleted successfully!');
     }
+
+
+
+    // ----------------la fonction de modifier une categorie-------------
+
     public function updateCategorie(Request $requets)
     {
         Categorie::where('id' , $requets->categorieId)->update([
@@ -70,13 +84,19 @@ class AdminController extends Controller
         ]);
         return redirect('/manageCategory');
     }
-    
+
+
+    // ----------la fonction de d'afficher les evenements creer par organisateur pour l'admin-------------
+
     public function manageEvents()
     {     
         $events = Event::where('status', '0')->with('user','categorie')->get();
         return view('admin.manageEvents', compact('events'));
     }
+
+
    
+    // ------------------la fonction d'accepter un evenement--------------------
 public function acceptEvent($id)
 {
     $event = Event::findOrFail($id);
@@ -84,6 +104,9 @@ public function acceptEvent($id)
     return redirect()->back()->with('success', 'Event accepted successfully!');
 }
 
+
+
+    // ------------------la fonction de refuser un evenement-------------------
 public function refuseEvent($id)
 {
     $event = Event::findOrFail($id);
@@ -91,14 +114,25 @@ public function refuseEvent($id)
     return redirect()->back()->with('success', 'Event refused');
 }
 
+
+
+    // ----------la fonction  d'afficher les clients---------------------
 public function banClient(){
     $clients=client::all();
     return view('admin.manageClient',compact('clients'));
 }
+
+
+
+    // ----------la fonction d'afficher les organisateurs---------------------
+
 public function banOrganizer(){
     $organizers=organisateur::all();
     return view('admin.manageOrganizer',compact('organizers'));
 }
+
+
+    // ----------la fonction de banner un utilisateur---------------------
 
 public function archiveUser($id)
     {
